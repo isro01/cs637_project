@@ -1,4 +1,4 @@
-classdef DefCLFr4
+classdef DefCBFr5
     properties
         bx; %%CBF function b(x)
         lf; 
@@ -9,17 +9,17 @@ classdef DefCLFr4
         b;
     end
     methods
-        function self = DefCLFr4(params, AffSys) %%, DefMap)
+        function self = DefCLFr5(params, AffSys) %%, DefMap)
             v = AffSys.v;
-            v_max = params.v_max;
+            v_min = params.v_min;
             
-            self.bx = v_max - v;
+            self.bx = v - v_min;
             
             self.lg = gradient(self.bx, AffSys.x).' * Affsys.g;
             self.lf = gradient(self.bx, AffSys.x).' * Affsys.f;
             
             sel_vec = zeros(params.udim + params.slack_dim);
-            sel_vec(7) = 1;
+            sel_vec(8) = 1;
             self.A = [ -self.lg sel_vec];
             self.b = [ self.lf + params.eps*self.bx ];
         end

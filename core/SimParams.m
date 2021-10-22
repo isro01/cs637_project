@@ -14,8 +14,8 @@ classdef SimParams
         u_s_min = -2;
         w = 1.8;
         l = 4;
-        l_f = 2;
-        l_r = 2;
+        lf = 2;
+        lr = 2;
         d_1 = 1;
         eta_1 = 0.067
         v_max_s = 7;
@@ -23,15 +23,27 @@ classdef SimParams
         a_max_s = 2.5;
         a_lat_m = 2.5;
         a_lat_s = 1.75;
-        d_7 = 0.3;eta_7 = 0.13;
+        d_7 = 0.3;
+        eta_7 = 0.13;
         d_8_l = 0.5;
         d_8_r = 0.5;
         d_8_f = 1;
         eta_8_r = 0.036;
         eta_8_l = 0.036;
         eta_8_f = 2;
-        v_d = 4;
+        vd = 4; % desired vel
         beta = 2;
+        
+        eps = 0.01;
+        umin = [u_j_min; u_s_min];
+        umax = [u_j_max; u_s_max];
+        u_min = [u_j_min; u_s_min];;
+        u_max = [u_j_max; u_s_max];
+        c0 = 1;
+        udim = 2;
+        slack_dim = 9;
+        k1=1;
+        
     end
 end
 
