@@ -1,4 +1,4 @@
-classdef DefCLFr5
+classdef DefCLFr2
     properties
         bx; %%CBF function b(x)
         lf; 
@@ -9,17 +9,16 @@ classdef DefCLFr5
         b;
     end
     methods
-        function self = DefCLFr5(params, AffSys) %%, DefMap)
-            v = AffSys.v;
-            v_min = params.v_min;
+        function self = DefCLFr1(params, AffSys) %%, DefMap)
+            %% d_left, d_right; ( ego coord - road boundary coord )
             
-            self.bx = v - v_min;
+            self.bx = d_left + d_right;
             
             self.lg = gradient(self.bx, AffSys.x).' * Affsys.g;
             self.lf = gradient(self.bx, AffSys.x).' * Affsys.f;
             
             sel_vec = zeros(params.udim + params.slack_dim);
-            sel_vec(8) = 1;
+            sel_vec(5) = 1;
             self.A = [ -self.lg sel_vec];
             self.b = [ self.lf + params.eps*self.bx ];
         end
