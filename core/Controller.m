@@ -6,17 +6,19 @@ classdef Controller
         f;
     end
     methods
-        function self = Controller(params, Clf, CbfStateConstraints)
+        function self = Controller(params, Clf, CbfStateConstraints, CbfR)
                         
             self.A = [ Clf.A;
                        CbfStateConstraints.A;
                       -eye(params.udim)  zeros(params.udim, params.slack_dim);
-                       eye(params.udim)  zeros(params.udim, params.slack_dim) ];
+                       eye(params.udim)  zeros(params.udim, params.slack_dim);
+                       CbfR.A ];
                   
             self.b = [ Clf.b;
                        CbfStateConstraints.b.';
                       -params.umin;
-                       params.umax ];
+                       params.umax;
+                       CbfR.b ];
                    
             self.f = zeros(params.udim + params.slack_dim, 1);
             
@@ -28,6 +30,7 @@ classdef Controller
             A_double = double(subs(self.A));
             b_double = double(subs(self.b));
             options =  optimset('Display','off');
+            disp("Generating Optimal Control Input");
             [u_exp, ~, exitflag, ~] = quadprog(self.H, self.f,A_double, b_double, [], [], [], [], [], options);
             u_exp = double(u_exp);
             if exitflag ==-2 
