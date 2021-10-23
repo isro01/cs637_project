@@ -9,10 +9,11 @@ params = SimParams();
 affs = AffSys(s, d, mu, v, a, delta, w, ujerk, usteer, params, k, slack);
 
 clf = DefCLF(params, affs);
+cbfStateConstraints = DefCBFStateConstraints(params, affs);
 
 map = Map(params, "data.json");
 
-controller = Controller(params, clf);
+controller = Controller(params, clf, cbfStateConstraints);
 
 s=subs(s,0);
 d=subs(d,0);
@@ -29,16 +30,12 @@ x_log(1) = map.ego(1);
 y_log(1) = map.ego(2);
 
 for i=2:params.N
-   i
-
+   disp(i);
    [u_upd, slack_upd] = controller.optimize(params, clf);
    [ujerk, usteer, slack] = UpdateInput(u_upd, slack_upd);
-   
-
  
    [x_upd, k_upd, map] = ForwardDynamics(affs, params, map, i);
    [s, d, mu, v, a, delta, w, k] = UpdateState(x_upd, k_upd);
-%    double(x_upd)
 
    x_log(i) = map.ego(1);
    y_log(i) = map.ego(2);

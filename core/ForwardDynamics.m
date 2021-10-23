@@ -4,8 +4,6 @@ function [x_upd, k_upd, map] = ForwardDynamics(affsys, params, map, t)
     x_upd = subs(affsys.x) + (params.dt * subs(affsys.xdot));
         
     [u,v] = updateCoordinates(ind, x_upd, map.refTraj, map.ego(1), map.ego(2), params);
-    double(u)
-    double(v)
     map.ego(1) = u;
     map.ego(2) = v;
     ind_n = computeClosestPoint(map.ego(1), map.ego(2), map.refTraj);

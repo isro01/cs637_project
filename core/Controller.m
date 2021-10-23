@@ -6,15 +6,17 @@ classdef Controller
         f;
     end
     methods
-        function self = Controller(params, Clf)
+        function self = Controller(params, Clf, CbfStateConstraints)
                         
-            self.A = [Clf.A;
+            self.A = [ Clf.A;
+                       CbfStateConstraints.A;
                       -eye(params.udim)  zeros(params.udim, params.slack_dim);
                        eye(params.udim)  zeros(params.udim, params.slack_dim) ];
                   
             self.b = [ Clf.b;
-                       -params.umin;
-                        params.umax ];
+                       CbfStateConstraints.b.';
+                      -params.umin;
+                       params.umax ];
                    
             self.f = zeros(params.udim + params.slack_dim, 1);
             

@@ -7,6 +7,7 @@ classdef Map
         refTraj;
         curvature;
         ego;
+        laneWidth
         
     end
     
@@ -34,10 +35,10 @@ classdef Map
             end 
             
             self.roadMid = data.road.roadMid;
-            laneWidth = data.road.width;
+            self.laneWidth = data.road.width;
             self.ego = [data.ego.x, data.ego.y];
             
-            self = generateRefTraj(self, laneWidth, self.ego);
+            self = generateRefTraj(self, self.laneWidth, self.ego);
             self = generateClearances(self, params);
             self = generateCurvature(self);
         end
@@ -58,7 +59,7 @@ classdef Map
                 diff = self.roadMid(i,:) - self.roadMid(i+1,:);
                 slope = diff(2)/diff(1);
                 slope = -1/slope;
-                factor = laneWidth * sqrt(1/(1+slope*slope));
+                factor = laneWidth * sqrt(1/(1+slope*slope))/2;
                 factCoord = [factor, slope*factor];
                 self.leftLaneMid(i,:) = self.roadMid(i,:) + factCoord;
                 self.rightLaneMid(i,:) = self.roadMid(i,:) - factCoord;
@@ -67,12 +68,12 @@ classdef Map
             diff = self.roadMid(n,:) - self.roadMid(n-1,:);
             slope = diff(2)/diff(1);
             slope = -1/slope;
-            factor = laneWidth * sqrt(1/(1+slope*slope));
+            factor = laneWidth * sqrt(1/(1+slope*slope))/2;
             factCoord = [factor, slope*factor];
             self.leftLaneMid(n,:) = self.roadMid(n,:) + factCoord;
             self.rightLaneMid(n,:) = self.roadMid(n,:) - factCoord;
            
-            distance = ((ego(1)-self.roadMid(1,1))^2) + ((ego(2)-self.roadMid(1,2))^2);
+            distance = sqrt(((ego(1)-self.roadMid(1,1))^2) + ((ego(2)-self.roadMid(1,2))^2));
             slope = (self.roadMid(1,2)-self.roadMid(2,2)) / (self.roadMid(1,1)-self.roadMid(2,1));
             factor = distance * sqrt(1/(1+slope*slope));
             factCoord = [factor, slope*factor];
