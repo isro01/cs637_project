@@ -22,7 +22,7 @@ classdef DefCLF
             self.lg = gradient(self.V, AffSys.x).' * AffSys.g; 
             
             sel_vec = zeros(1, params.slack_dim);
-            sel_vec(3) = -1;
+            sel_vec(1) = -1;
             self.A = [self.lg  sel_vec];
             self.b = -self.lf-params.eps*self.V;
         end
