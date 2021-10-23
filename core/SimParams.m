@@ -31,18 +31,23 @@ classdef SimParams
         eta_8_r = 0.036;
         eta_8_l = 0.036;
         eta_8_f = 2;
-        vd = 4; % desired vel
+        vd = 20; % desired vel
         beta = 2;
         
         eps = 0.01;
-        umin = [u_j_min; u_s_min];
-        umax = [u_j_max; u_s_max];
-        u_min = [u_j_min; u_s_min];;
-        u_max = [u_j_max; u_s_max];
+        umin = [-4; -2];
+        umax = [4; 2];
         c0 = 1;
         udim = 2;
-        slack_dim = 9;
+        slack_dim = 1;
+        slack_weight = eye(1);
+        x_dim = 7;
         k1=1;
+        dt=1;
+        N=6;
+        d_veh=5;
+        k_active=0.1;
+        
         
     end
 end

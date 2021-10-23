@@ -18,7 +18,7 @@ classdef DefCBFr2
             self.lf = gradient(self.bx, AffSys.x).' * Affsys.f;
             
             sel_vec = zeros(params.udim + params.slack_dim);
-            sel_vec(5) = 1;
+            sel_vec(3) = 1;
             self.A = [ -self.lg sel_vec];
             self.b = [ self.lf + params.eps*self.bx ];
         end

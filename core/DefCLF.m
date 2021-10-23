@@ -3,6 +3,8 @@ classdef DefCLF
         V;  
         lf;
         lg;
+        A;
+        b;
     end
     methods
         function self = DefCLF(params, AffSys)
@@ -18,6 +20,11 @@ classdef DefCLF
             
             self.lf = gradient(self.V, AffSys.x).' * AffSys.f; 
             self.lg = gradient(self.V, AffSys.x).' * AffSys.g; 
+            
+            sel_vec = zeros(1, params.slack_dim);
+            sel_vec(1) = -1;
+            self.A = [self.lg  sel_vec];
+            self.b = -self.lf-params.eps*self.V;
         end
     end
 end
