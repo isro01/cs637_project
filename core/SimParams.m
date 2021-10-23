@@ -6,10 +6,10 @@ classdef SimParams
         a_min = -3.5;
         u_j_max = 4;
         u_j_min = -4;
-        del_max = 1;
-        del_min = -1;
-        omega_max = 0.5;
-        omega_min = -0.5;
+        delta_max = 1;
+        delta_min = -1;
+        w_max = 0.5;
+        w_min = -0.5;
         u_s_max = 2;
         u_s_min = -2;
         w = 1.8;
@@ -39,8 +39,8 @@ classdef SimParams
         umax = [4; 2];
         c0 = 1;
         udim = 2;
-        slack_dim = 1;
-        slack_weight = eye(1);
+        slack_dim = 9;
+        slack_weight = eye(9);
         x_dim = 7;
         k1=1;
         dt=1;
@@ -48,6 +48,11 @@ classdef SimParams
         d_veh=5;
         k_active=0.1;
         d_max = 1;
+        
+        p1=1;
+        p2=1;
+        p3=1;
+        p4=1;
         
     end
 end
