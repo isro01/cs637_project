@@ -9,7 +9,7 @@ classdef DefCBFr7
         b;
     end
     methods
-        function self = DefCLFr1(params, AffSys) %%, DefMap)
+        function self = DefCBFr7(params, AffSys) %%, DefMap)
             d_7 = params.d_7;
             v = AffSys.x(4);
             eta_7 = params.eta_7;
@@ -17,13 +17,13 @@ classdef DefCBFr7
             
             self.bx = d_min_i - d_7 - v*eta_7;
             
-            self.lg = gradient(self.bx, AffSys.x).' * Affsys.g;
-            self.lf = gradient(self.bx, AffSys.x).' * Affsys.f;
+            self.lg = gradient(self.bx, AffSys.x).' * AffSys.g;
+            self.lf = gradient(self.bx, AffSys.x).' * AffSys.f;
             
-            sel_vec = zeros(params.udim + params.slack_dim);
-            sel_vec(9) = 1;
+            sel_vec = zeros(1, params.slack_dim);
+            sel_vec(14) = 1;
             self.A = [ -self.lg sel_vec];
-            self.b = [ self.lf + params.eps*self.bx ];
+            self.b = self.lf + params.eps*self.bx ;
         end
     end
 end
