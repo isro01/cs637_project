@@ -1,12 +1,15 @@
 
-function [] = ForwardDynamics(affsys, params, map, t)
+function [x_upd, k_upd, map] = ForwardDynamics(affsys, params, map, t)
     ind = computeClosestPoint(map.ego(1), map.ego(2), map.refTraj);
-    affsys.x = affsys.x + (params.dt * subs(affsys.xdot));
-    [u,v] = updateCoordinates(ind, affsys.x, map.refTraj, map.ego(1), map.ego(2), params);
+    x_upd = subs(affsys.x) + (params.dt * subs(affsys.xdot));
+        
+    [u,v] = updateCoordinates(ind, x_upd, map.refTraj, map.ego(1), map.ego(2), params);
+    double(u)
+    double(v)
     map.ego(1) = u;
     map.ego(2) = v;
     ind_n = computeClosestPoint(map.ego(1), map.ego(2), map.refTraj);
-    affsys.k = map.curvature(ind_n);
+    k_upd =  map.curvature(ind_n);
     
     n = size(map.instanceList, 1);
     for i = 1:n

@@ -1,3 +1,4 @@
+
 clc; clear all; close all;
 
 syms s d mu v a delta w k ujerk usteer slack;
@@ -13,25 +14,32 @@ map = Map(params, "data.json");
 
 controller = Controller(params, clf);
 
-s=0;
-d=0;
-mu=0;
-v=0;
-a=0;
-delta=0;
-w=0;
+s=subs(s,0);
+d=subs(d,0);
+mu=subs(mu,0);
+v=subs(v,0);
+a=subs(a,0);
+delta=subs(delta,0);
+w=subs(w,0);
 
-x_log = zeros(params.N);
-y_log = zeros(params.N);
+x_log = zeros(1,params.N);
+y_log = zeros(1,params.N);
 
 x_log(1) = map.ego(1);
 y_log(1) = map.ego(2);
 
-
 for i=2:params.N
    i
-   controller.optimize(affs, params, clf)
-   ForwardDynamics(affs, params, map, i);
+
+   [u_upd, slack_upd] = controller.optimize(params, clf);
+   [ujerk, usteer, slack] = UpdateInput(u_upd, slack_upd);
+   
+
+ 
+   [x_upd, k_upd, map] = ForwardDynamics(affs, params, map, i);
+   [s, d, mu, v, a, delta, w, k] = UpdateState(x_upd, k_upd);
+%    double(x_upd)
+
    x_log(i) = map.ego(1);
    y_log(i) = map.ego(2);
 end
