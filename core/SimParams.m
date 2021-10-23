@@ -47,7 +47,7 @@ classdef SimParams
         N=6;
         d_veh=5;
         k_active=0.1;
-        
+        d_max = 1;
         
     end
 end
