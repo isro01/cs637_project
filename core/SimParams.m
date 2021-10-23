@@ -39,12 +39,12 @@ classdef SimParams
         umax = [4; 2];
         c0 = 1;
         udim = 2;
-        slack_dim = 9;
-        slack_weight = eye(9);
+        slack_dim = 10;
+        slack_weight = eye(10);
         x_dim = 7;
         k1=1;
         dt=1;
-        N=6;
+        N=20;
         d_veh=5;
         k_active=0.1;
         d_max = 1;
