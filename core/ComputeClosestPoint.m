@@ -1,5 +1,5 @@
 
-function ind = computeClosestPoint(x, y, refTraj)
+function ind = ComputeClosestPoint(x, y, refTraj)
     n = size(refTraj,1);
     dist = realmax;
     ind = 1;

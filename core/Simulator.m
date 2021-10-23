@@ -78,14 +78,7 @@ function [scenario, egoVehicle] = simulator()
         'PlotColor', [0 114 189] / 255, ...
         'Name', 'Car');
     % mention the x and y coordinates of ego in 'Position' field from json file
-    waypoints = [-0.538370043474972 50.1281360003585 0;
-        13.2 36.8 0;
-        28.4 20.7 0;
-        32.7 16.3 0;
-        40.3 9.5 0;
-        47.3 0.8 0;
-        50.9 -4.2 0;
-        58.4 -10.3 0];
+    waypoints = IterAlgo();
 
     % instead of hardcoding waypoints, assign it's values by calling a function generateEgoWaypoints() after 
     % appending z coordinates
