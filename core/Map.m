@@ -80,9 +80,9 @@ classdef Map
             p1 = self.roadMid(n,:) + factCoord;
             
             if p1(1) == ego(1) && p1(2) == ego(2)
-                self.refTraj = self.leftLaneMid;
-            else
                 self.refTraj = self.rightLaneMid;
+            else 
+                self.refTraj = self.leftLaneMid;
             end
         end
         

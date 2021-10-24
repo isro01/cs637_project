@@ -10,7 +10,7 @@ classdef DefCBFr4
     end
     methods
         function self = DefCBFr4(params, AffSys) %%, DefMap)
-            v = AffSys.v;
+            v = AffSys.x(4);
             v_max = params.v_max;
             
             self.bx = v_max - v;

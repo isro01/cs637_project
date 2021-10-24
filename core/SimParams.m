@@ -16,7 +16,7 @@ classdef SimParams
         l = 4;
         lf = 2;
         lr = 2;
-        d_1 = 1;
+        d_1 = 5;
         eta_1 = 0.067
         v_max_s = 7;
         v_min_s = 3;
@@ -31,7 +31,7 @@ classdef SimParams
         eta_8_r = 0.036;
         eta_8_l = 0.036;
         eta_8_f = 2;
-        vd = 20; % desired vel
+        vd = 4; % desired vel
         beta = 2;
         
         eps = 0.01;
@@ -39,21 +39,22 @@ classdef SimParams
         umax = [4; 2];
         c0 = 1;
         udim = 2;
-        slack_dim = 10;
-        slack_weight = eye(10);
+        slack_dim = 15;
+        slack_weight = eye(15);
         x_dim = 7;
         k1=1;
-        dt=1;
-        N=20;
+        dt=2;
+        N=15;
         d_veh=5;
         k_active=0.1;
         d_max = 1;
         
-        p1=1;
+        p1=0.01;
         p2=1;
         p3=1;
         p4=1;
         
+        p5=1;
     end
 end
 

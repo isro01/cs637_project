@@ -1,13 +1,10 @@
 
-function [x_upd, k_upd, map] = ForwardDynamics(affsys, params, map, t)
-    ind = ComputeClosestPoint(map.ego(1), map.ego(2), map.refTraj);
-    x_upd = subs(affsys.x) + (params.dt * subs(affsys.xdot));
-        
-    [u,v] = updateCoordinates(ind, x_upd, map.refTraj, map.ego(1), map.ego(2), params);
-    map.ego(1) = u;
-    map.ego(2) = v;
-    ind_n = ComputeClosestPoint(map.ego(1), map.ego(2), map.refTraj);
-    k_upd =  map.curvature(ind_n);
+function [x_upd, k_upd, xCl_upd, yCl_upd] = ForwardDynamics(affsys, params, map, t)
+
+    x_upd = subs(affsys.x) + (params.dt * subs(affsys.xdot));	
+    xCl_upd = map.refTraj(t,1);
+    yCl_upd = map.refTraj(t, 2);
+    k_upd =  map.curvature(t);
     
     n = size(map.instanceList, 1);
     for i = 1:n
@@ -16,17 +13,17 @@ function [x_upd, k_upd, map] = ForwardDynamics(affsys, params, map, t)
     end
 end
 
-function [x_n,y_n] = updateCoordinates(ind, state, refTraj, x, y, params)
-    if size(refTraj, 1) == ind
-       phi = (refTraj(ind, 2) - refTraj(ind-1, 2))/(refTraj(ind, 1) - refTraj(ind-1,1));
-    else
-       phi = (refTraj(ind, 2) - refTraj(ind+1, 2))/(refTraj(ind, 1) - refTraj(ind+1,1));
-    end
-    
-   phi = atan(phi);
-
-   theta = phi + state(3);
-
-   x_n = subs(x + cos(theta) * state(4) * params.dt); 
-   y_n = subs(y + sin(theta) * state(4) * params.dt);
-end
+% function [x_n,y_n] = updateCoordinates(ind, state, refTraj, x, y, params)
+%     if size(refTraj, 1) == ind
+%        phi = (refTraj(ind, 2) - refTraj(ind-1, 2))/(refTraj(ind, 1) - refTraj(ind-1,1));
+%     else
+%        phi = (refTraj(ind, 2) - refTraj(ind+1, 2))/(refTraj(ind, 1) - refTraj(ind+1,1));
+%     end
+%     
+%    phi = atan(phi);
+% 
+%    theta = phi + state(3);
+% 
+%    x_n = subs(x + cos(theta) * state(4) * params.dt); 
+%    y_n = subs(y + sin(theta) * state(4) * params.dt);
+% end

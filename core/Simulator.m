@@ -1,71 +1,73 @@
-function [scenario, egoVehicle] = simulator()
+function [scenario, egoVehicle] = Simulator(map, x_log, y_log, speed_traj)
     % Construct a drivingScenario object.
     scenario = drivingScenario;
     
     % Add all road segments
-    roadCenters = [
-        -4.2 50.6 0;
-        -3.16 49.61 0;
-        -2.12 48.62 0;
-        -1.08 47.63 0;
-        -0.04 46.64 0;
-        1 45.65 0;
-        2.04 44.66 0;
-        3.08 43.67 0;
-        4.12 42.68 0;
-        5.16 41.69 0;
-        6.2 40.7 0;
-        7.23 39.71 0;
-        8.26 38.72 0;
-        9.29 37.73 0;
-        10.32 36.74 0;
-        11.35 35.75 0;
-        12.38 34.76 0;
-        13.41 33.77 0;
-        14.44 32.78 0;
-        15.47 31.79 0;
-        16.5 30.8 0;
-        17.51 29.8 0;
-        18.52 28.8 0;
-        19.53 27.8 0;
-        20.54 26.8 0;
-        21.55 25.8 0;
-        22.56 24.8 0;
-        23.57 23.8 0;
-        24.58 22.8 0;
-        25.59 21.8 0;
-        26.6 20.8 0;
-        27.75 19.62 0;
-        28.9 18.44 0;
-        30.05 17.26 0;
-        31.2 16.08 0;
-        32.35 14.9 0;
-        33.5 13.72 0;
-        34.65 12.54 0;
-        35.8 11.36 0;
-        36.95 10.18 0;
-        38.1 9 0;
-        39.02 8.03 0;
-        39.94 7.06 0;
-        40.86 6.09 0;
-        41.78 5.12 0;
-        42.7 4.15 0;
-        43.62 3.18 0;
-        44.54 2.21 0;
-        45.46 1.24 0;
-        46.38 0.27 0;
-        47.3 -0.7 0;
-        48.39 -1.88 0;
-        49.48 -3.06 0;
-        50.57 -4.24 0;
-        51.66 -5.42 0;
-        52.75 -6.6 0;
-        53.84 -7.78 0;
-        54.93 -8.96 0;
-        56.02 -10.14 0;
-        57.11 -11.32 0;
-        58.2 -12.5 0
-    ];
+    n = size(map.roadMid, 1);
+    roadCenters = [map.roadMid, zeros(n,1)];
+%     roadCenters = [
+%         -4.2 50.6 0;
+%         -3.16 49.61 0;
+%         -2.12 48.62 0;
+%         -1.08 47.63 0;
+%         -0.04 46.64 0;
+%         1 45.65 0;
+%         2.04 44.66 0;
+%         3.08 43.67 0;
+%         4.12 42.68 0;
+%         5.16 41.69 0;
+%         6.2 40.7 0;
+%         7.23 39.71 0;
+%         8.26 38.72 0;
+%         9.29 37.73 0;
+%         10.32 36.74 0;
+%         11.35 35.75 0;
+%         12.38 34.76 0;
+%         13.41 33.77 0;
+%         14.44 32.78 0;
+%         15.47 31.79 0;
+%         16.5 30.8 0;
+%         17.51 29.8 0;
+%         18.52 28.8 0;
+%         19.53 27.8 0;
+%         20.54 26.8 0;
+%         21.55 25.8 0;
+%         22.56 24.8 0;
+%         23.57 23.8 0;
+%         24.58 22.8 0;
+%         25.59 21.8 0;
+%         26.6 20.8 0;
+%         27.75 19.62 0;
+%         28.9 18.44 0;
+%         30.05 17.26 0;
+%         31.2 16.08 0;
+%         32.35 14.9 0;
+%         33.5 13.72 0;
+%         34.65 12.54 0;
+%         35.8 11.36 0;
+%         36.95 10.18 0;
+%         38.1 9 0;
+%         39.02 8.03 0;
+%         39.94 7.06 0;
+%         40.86 6.09 0;
+%         41.78 5.12 0;
+%         42.7 4.15 0;
+%         43.62 3.18 0;
+%         44.54 2.21 0;
+%         45.46 1.24 0;
+%         46.38 0.27 0;
+%         47.3 -0.7 0;
+%         48.39 -1.88 0;
+%         49.48 -3.06 0;
+%         50.57 -4.24 0;
+%         51.66 -5.42 0;
+%         52.75 -6.6 0;
+%         53.84 -7.78 0;
+%         54.93 -8.96 0;
+%         56.02 -10.14 0;
+%         57.11 -11.32 0;
+%         58.2 -12.5 0
+%     ];
     % instead of hardcoding roadCenters, copy the value of roadCenters from Json file after appending z coordinates
     laneSpecification = lanespec(2);
     road(scenario, roadCenters, 'Lanes', laneSpecification, 'Name', 'Road');
@@ -73,17 +75,17 @@ function [scenario, egoVehicle] = simulator()
     % Add the ego vehicle
     egoVehicle = vehicle(scenario, ...
         'ClassID', 1, ...
-        'Position', [-0.538370043474972 50.1281360003585 0], ...
+        'Position', [map.ego(1) map.ego(2) 0], ...
         'Mesh', driving.scenario.carMesh, ...
         'PlotColor', [0 114 189] / 255, ...
         'Name', 'Car');
     % mention the x and y coordinates of ego in 'Position' field from json file
-    waypoints = IterAlgo();
+    waypoints = [x_log.', y_log.', zeros(size(x_log,2), 1)];
 
     % instead of hardcoding waypoints, assign it's values by calling a function generateEgoWaypoints() after 
     % appending z coordinates
 
-    speed = [30;30;30;30;30;30;30;30];
+    speed = speed_traj.';
     % instead of hardcoding speed, assign it's values by calling a function
     trajectory(egoVehicle, waypoints, speed);
     

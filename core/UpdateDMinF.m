@@ -1,5 +1,6 @@
 
-function d_minf = UpdateDMinF(x_curr, y_curr, map)
+function d_lane = UpdateDMinF(x_curr, y_curr, map, x_traj, y_traj)
+
     d_minf = realmax;
     for i=1:length(map.instanceList)
         if map.instanceList(i).type == "pedestrian"
@@ -9,4 +10,15 @@ function d_minf = UpdateDMinF(x_curr, y_curr, map)
             end
         end
     end
+    d_minf_sym = sym(d_minf);
+    
+    d_temp = sqrt( (x_curr-x_traj)^2 + (y_curr - y_traj)^2 );
+    if d_temp < (map.laneWidth/2)
+        d_lane = 0;
+    end
+    if d_temp >= (map.laneWidth/2)
+        d_lane = 2*d_temp;
+    end
+    
+
 end

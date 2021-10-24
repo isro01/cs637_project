@@ -7,9 +7,11 @@ classdef AffSys
         slack;
         xdot;
         k;
+        egoX;
+        egoY;
     end
     methods
-        function self = AffSys(s, d, mu, v, a, delta, w, ujerk, usteer, params, k, slack)
+        function self = AffSys(s, d, mu, v, a, delta, w, ujerk, usteer, params, k, slack, xCl, yCl)
             self.x = [ s;
                        d;
                        mu;
@@ -17,7 +19,9 @@ classdef AffSys
                        a;
                        delta;
                        w];
-     
+            self.egoX = xCl - 0.7*d;
+            self.egoY = yCl - 0.7*d;
+            
             self.u = [ ujerk;
                        usteer];
             

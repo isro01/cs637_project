@@ -35,10 +35,10 @@ function e = RuleVioln( map, params, rule_i, x_curr, y_curr, speed)
                 %%rule 3: stay in lane
                 d_temp = sqrt( (x_curr-x_traj)^2 + (y_curr - y_traj)^2 );
                 if d_temp<(lane_width/2)
-                    num = lane_width;
+                    num = 0;
                 end
                 if d_temp >= (lane_width/2)
-                    num = 2*d_temp - (lane_width/2);
+                    num = 2*d_temp;
                 end
                     % num = d_l + d_r;
                 denum = 2*params.d_max;
