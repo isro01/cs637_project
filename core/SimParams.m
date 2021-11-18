@@ -2,10 +2,10 @@ classdef SimParams
     properties
         v_max = 10;
         v_min = 0;
-        a_max = 3.5; 
-        a_min = -3.5;
-        u_j_max = 4;
-        u_j_min = -4;
+        a_max = 5.5; 
+        a_min = -5.5;
+        u_j_max = 8;
+        u_j_min = -8;
         delta_max = 1;
         delta_min = -1;
         w_max = 0.5;
@@ -17,7 +17,7 @@ classdef SimParams
         lf = 2;
         lr = 2;
         d_1 = 5;
-        eta_1 = 0.067
+        eta_1 = 0.097
         v_max_s = 7;
         v_min_s = 3;
         a_max_s = 2.5;
@@ -31,20 +31,20 @@ classdef SimParams
         eta_8_r = 0.036;
         eta_8_l = 0.036;
         eta_8_f = 2;
-        vd = 4; % desired vel
+        vd = 1; % desired vel
         beta = 2;
         
         eps = 0.01;
-        umin = [-4; -2];
-        umax = [4; 2];
+        umin = [-8; -8];
+        umax = [8; 8];
         c0 = 1;
         udim = 2;
         slack_dim = 15;
         slack_weight = eye(15);
         x_dim = 7;
         k1=1;
-        dt=2;
-        N=15;
+        dt=0.01;
+        N=6400;
         d_veh=5;
         k_active=0.1;
         d_max = 1;
@@ -54,7 +54,7 @@ classdef SimParams
         p3=1;
         p4=1;
         
-        p5=1;
+        p5=100;
     end
 end
 

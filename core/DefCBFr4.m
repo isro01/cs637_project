@@ -19,7 +19,7 @@ classdef DefCBFr4
             self.lf = gradient(self.bx, AffSys.x).' * AffSys.f;
             
             sel_vec = zeros(1, params.slack_dim);
-            sel_vec(12) = 1;
+            sel_vec(13) = 1;
             self.A = [ -self.lg sel_vec];
             self.b =  self.lf + params.eps*self.bx ;
         end

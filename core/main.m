@@ -7,8 +7,8 @@ params = SimParams();
 
 affs = AffSys(s, d, mu, v, a, delta, w, ujerk, usteer, params, k, slack, xCl, yCl);
 
-map = Map(params, "data.json");
-
+map = Map(params, "scenario2.json");
+z
 clf = DefCLF(params, affs);
 cbfStateConstraints = DefCBFStateConstraints(params, affs);
 
@@ -70,6 +70,7 @@ j = 4;
     
     x_log = zeros(1,params.N);
     y_log = zeros(1,params.N);
+    slack_log = zeros(params.N, params.slack_dim);
     speed = zeros(1,params.N);
 
 
@@ -82,7 +83,7 @@ j = 4;
        fprintf('Iteration:%i\n', i);
        
        disp("Generating rule CBF matrices");
-       [cbfrA, cbfrb] = cbfR.subsetMatrix(binary);
+       [cbfrA, cbfrb] = cbfR.subsetMatrix(binary(j));
        
        disp("Generating optimal control input");
        [u_upd, slack_upd] = controller.optimize(params, clf, cbfrA, cbfrb);
@@ -109,7 +110,7 @@ j = 4;
        speed(i) = v; 
        x_log(i) = subs(affs.egoX);
        y_log(i) = subs(affs.egoY);
-       
+       slack_log(i,:) = subs(slack);
        fprintf("\n");
     end
 %     

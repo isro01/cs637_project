@@ -25,7 +25,7 @@ classdef DefCBFr1
             sel_vec = zeros(1, params.slack_dim);
             sel_vec(10) = 1;
             self.A = [ -self.lg  sel_vec];
-            self.b = self.lf + params.eps*self.bx ;
+            self.b = (self.lf + params.eps*self.bx );
         end
     end
 end

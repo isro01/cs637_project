@@ -1,7 +1,7 @@
 
 function [x_upd, k_upd, xCl_upd, yCl_upd] = ForwardDynamics(affsys, params, map, t)
 
-    x_upd = subs(affsys.x) + (params.dt * subs(affsys.xdot));	
+    x_upd = double(subs(affsys.x)) + (params.dt * double(subs(affsys.xdot)));	
     xCl_upd = map.refTraj(t,1);
     yCl_upd = map.refTraj(t, 2);
     k_upd =  map.curvature(t);
