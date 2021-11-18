@@ -44,7 +44,7 @@ classdef SimParams
         x_dim = 7; % dimension of state of the vehicle
         k1=1; % A positive constant used in defining the CLF
         dt=0.01; % instantaneous change in time
-        N=6400; % number of iterations
+        N=4200; % number of iterations
         d_veh=5; % distance of vehicle from ego
         k_active=0.1; % a constant used to define the clearance from active vehicles
         d_max = 1; %  maximum infringement distance

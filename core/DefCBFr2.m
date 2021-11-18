@@ -1,3 +1,4 @@
+% Rule 2 - Stay in the drivable area
 classdef DefCBFr2
     properties
         bx; %%CBF function b(x)

@@ -7,8 +7,8 @@ params = SimParams();
 
 affs = AffSys(s, d, mu, v, a, delta, w, ujerk, usteer, params, k, slack, xCl, yCl);
 
-map = Map(params, "scenario2.json");
-z
+map = Map(params, "scenario3.json");
+
 clf = DefCLF(params, affs);
 cbfStateConstraints = DefCBFStateConstraints(params, affs);
 

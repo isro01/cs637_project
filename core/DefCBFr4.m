@@ -1,3 +1,4 @@
+% Rule 4 -: Satisfy the maximum speed limit
 classdef DefCBFr4
     properties
         bx; %%CBF function b(x)

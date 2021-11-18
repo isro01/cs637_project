@@ -21,7 +21,7 @@ classdef Controller
             self.f = zeros(params.udim + params.slack_dim, 1);
             
             slack_weight = params.slack_weight;
-            slack_weight(10,10) = 1000;
+            slack_weight(10,10) = 0.0001;
             
             self.H = [ 2*eye(params.udim)             zeros(params.udim, params.slack_dim);
                        zeros(params.slack_dim, params.udim)  2*slack_weight ];

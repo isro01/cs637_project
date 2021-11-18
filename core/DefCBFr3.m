@@ -1,3 +1,4 @@
+% Rule 3 - Stay in lane
 classdef DefCBFr3
     properties
         bx; %%CBF function b(x)

@@ -1,3 +1,4 @@
+% This class describes the affine system with control inputs and state variables
 classdef AffSys
     properties
         x;

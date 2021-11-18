@@ -1,3 +1,4 @@
+% Rule 5 - Satisfy the minimum speed limit
 classdef DefCBFr5
     properties
         bx; %%CBF function b(x)

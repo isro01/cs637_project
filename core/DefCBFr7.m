@@ -1,3 +1,4 @@
+% Rule 7 - Maintain clearance with parked vehicles
 classdef DefCBFr7
     properties
         bx; %CBF function b(x)

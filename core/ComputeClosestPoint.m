@@ -1,4 +1,4 @@
-
+% This function calculates the point closest to the ego on the reference trajectoy
 function ind = ComputeClosestPoint(x, y, refTraj)
     n = size(refTraj,1);
     dist = realmax;

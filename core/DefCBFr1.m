@@ -1,3 +1,4 @@
+% Rule 1 - Maintain clearance with pedestrians
 classdef DefCBFr1
     properties
         bx; %CBF function b(x)
